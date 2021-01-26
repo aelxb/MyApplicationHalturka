@@ -3,6 +3,7 @@ package ru.konder.myapplicationhalturka
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import java.io.DataOutput
 import java.io.IOException
 import java.net.Socket
 
@@ -36,5 +37,21 @@ class MainActivity : AppCompatActivity() {
                 mSocket = null;
             }
         }
+    }
+    fun sendData(data:ByteArray)  {
+        if (mSocket!!.isClosed()) {
+            throw Exception("Невозможно отправить данные. Сокет не создан или закрыт");
+        }
+        try {
+            mSocket!!.getOutputStream().write(data);
+            mSocket!!.getOutputStream().flush();
+        }
+        catch (e: IOException) {
+            throw Exception("Невозможно отправить данные: "+e.localizedMessage);
+        }
+    }
+    override fun finalize() {
+        super.finish();
+        closeConnection();
     }
 }
