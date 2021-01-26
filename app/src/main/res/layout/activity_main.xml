@@ -21,5 +21,19 @@
         android:text="open"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="parent"/>
+    <Button
+        android:id="@+id/bSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="send"
+        app:layout_constraintTop_toBottomOf="@id/bOpen"
+        app:layout_constraintStart_toEndOf="parent"/>
+    <Button
+        android:id="@+id/bClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="send"
+        app:layout_constraintTop_toBottomOf="@id/bSend"
+        app:layout_constraintStart_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,17 +15,32 @@ class MainActivity : AppCompatActivity() {
     val mServerPort = 8888
     var mSocket: Socket? = null
     override fun onCreate(savedInstanceState: Bundle?) {
+        var mServer: LaptopSever? = LaptopSever()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var mButtonOpen = findViewById<Button>(R.id.bOpen)
+        var mButtonClose= findViewById<Button>(R.id.bClose)
+        var mButtonSend = findViewById<Button>(R.id.bSend)
         mButtonOpen.setOnClickListener() {
-            var mServer: LaptopSever? = LaptopSever()
             try {
-                mServer.openConnection()
+                mServer!!.openConnection()
             } catch (e: IOException) {
                 throw Exception(e.localizedMessage)
                 mServer = null;
             }
+        }
+        mButtonSend.setOnClickListener() {
+            if(mServer==null){
+                Log.e(LOG_TAG, "ААА ГДЕ СЕРВЕР?")
+            }
+            try {
+                mServer!!.sendData("Send text to server".toByteArray());
+            } catch (e: IOException) {
+                Log.e(LOG_TAG, e.localizedMessage)
+            }
+        }
+        mButtonClose.setOnClickListener() {
+            mServer!!.closeConnection()
         }
     }
 }
@@ -69,7 +84,7 @@ class LaptopSever{
         }
     }
     fun finalize() {
-        super.finish();
-        closeConnection();
+        //super.finish() я ебал, это не работает
+        closeConnection()
     }
 }
